@@ -5,26 +5,48 @@ import { PlusCircle, Edit, Trash2, AlertTriangle, CheckCircle, Clock } from 'luc
 import { Employee } from '@/types'
 
 const initialEmployees: Employee[] = [
-  // Professores
+  // PROFESSORES (16 total - todos demissão dezembro)
   { id: '1', name: 'Adelino Bortolto Filho', position: 'Professor de Administração', salary: 2535.50, hireDate: '', category: 'professor', status: 'dismissed_december' },
   { id: '2', name: 'Antonio de Pádua Lelis Scanavachi', position: 'Professor de Seg. do Trabalho', salary: 1247.61, hireDate: '', category: 'professor', status: 'dismissed_december' },
   { id: '3', name: 'Bibiano Francisco Eloi Junior', position: 'Professor de Administração', salary: 1671.21, hireDate: '', category: 'professor', status: 'dismissed_december' },
+  { id: '4', name: 'Carlos Eduardo de Oliveira', position: 'Professor de Eletrônica', salary: 2451.80, hireDate: '', category: 'professor', status: 'dismissed_december' },
+  { id: '5', name: 'Denison Xavier', position: 'Professor de Eletrônica', salary: 1571.21, hireDate: '', category: 'professor', status: 'dismissed_december' },
+  { id: '6', name: 'Eriel Fernando dos Santos', position: 'Professor', salary: 1467.02, hireDate: '', category: 'professor', status: 'dismissed_december' },
+  { id: '7', name: 'Frederico Gomes Rodrigues', position: 'Professor de Edificações', salary: 1904.77, hireDate: '', category: 'professor', status: 'dismissed_december' },
+  { id: '8', name: 'Guilherme Magano Lanza', position: 'Professor', salary: 1467.02, hireDate: '', category: 'professor', status: 'dismissed_december' },
+  { id: '9', name: 'Igor Vespucci Laurindo', position: 'Professor de Edificações', salary: 1029.20, hireDate: '', category: 'professor', status: 'dismissed_december' },
+  { id: '10', name: 'Iauê Peduto Conceição', position: 'Professor de Edificações', salary: 1014.09, hireDate: '', category: 'professor', status: 'dismissed_december' },
+  { id: '11', name: 'João Paulo Gomes Diplom', position: 'Professor de Seg. do Trabalho', salary: 1659.53, hireDate: '', category: 'professor', status: 'dismissed_december' },
+  { id: '12', name: 'Luis Henrique de Campos', position: 'Professor d Eletrônica', salary: 2429.20, hireDate: '', category: 'professor', status: 'dismissed_december' },
+  { id: '13', name: 'Luiz Donizeti Duarte', position: 'Professor de Edificações', salary: 1587.02, hireDate: '', category: 'professor', status: 'dismissed_december' },
+  { id: '14', name: 'Manuel Rodrigues', position: 'Professor de Administração', salary: 780.59, hireDate: '', category: 'professor', status: 'dismissed_december' },
+  { id: '15', name: 'Rafaela Nunes Ferreira', position: 'Professora de Administração', salary: 1014.09, hireDate: '', category: 'professor', status: 'dismissed_december' },
+  { id: '16', name: 'Tristana Cezaretto', position: 'Professora de Psicologia', salary: 1467.02, hireDate: '', category: 'professor', status: 'dismissed_december' },
   
-  // Administrativos - Demissão Dezembro
-  { id: '11', name: 'Ademar de Oliveira Vielto', position: 'Trabalhador da Manutenção', salary: 4427.00, hireDate: '', category: 'administrative', status: 'dismissed_december' },
-  { id: '12', name: 'Armilton Fernando Lourenço', position: 'Trabalhador da Manutenção', salary: 4427.00, hireDate: '', category: 'administrative', status: 'dismissed_december' },
+  // ADMINISTRATIVOS CEGEP (demissão dezembro)
+  { id: '21', name: 'Ademar de Oliveira Vielto', position: 'Trabalhador da Manutenção', salary: 4427.00, hireDate: '', category: 'administrative', status: 'dismissed_december' },
+  { id: '22', name: 'Armilton Fernando Lourenço', position: 'Trabalhador da Manutenção', salary: 4427.00, hireDate: '', category: 'administrative', status: 'dismissed_december' },
+  { id: '23', name: 'Carla Regina de Lira', position: 'Secretária Acadêmica', salary: 4514.85, hireDate: '', category: 'administrative', status: 'dismissed_december' },
+  { id: '24', name: 'Evandro Ricardo Sabino de Souza', position: 'Inspetor de Alunos', salary: 2479.97, hireDate: '', category: 'administrative', status: 'dismissed_december' },
+  { id: '25', name: 'Fátima Helena Cheregati', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '', category: 'administrative', status: 'dismissed_december' },
+  { id: '26', name: 'Henrique Francisco Seixas', position: 'Assessor Jurídico', salary: 5677.64, hireDate: '', category: 'administrative', status: 'dismissed_december' },
+  { id: '27', name: 'Juliana Luiz do Amaral', position: 'Assistente de T.I.', salary: 4960.98, hireDate: '', category: 'administrative', status: 'dismissed_december' },
   
   // FEG - Pendente FUNCAMP
-  { id: '21', name: 'Aline da Silva Vieiosa', position: 'Auxiliar de Serviços Gerais', salary: 4118.50, hireDate: '', category: 'feg', status: 'funcamp_pending' },
-  { id: '22', name: 'Bruno Ferreira dos Santos', position: 'Oficial Administrativo Pleno', salary: 2754.73, hireDate: '', category: 'feg', status: 'funcamp_pending' },
+  { id: '31', name: 'Aline da Silva Vieiosa', position: 'Auxiliar de Serviços Gerais', salary: 4118.50, hireDate: '', category: 'feg', status: 'funcamp_pending' },
+  { id: '32', name: 'Bruno Ferreira dos Santos', position: 'Oficial Administrativo Pleno', salary: 2754.73, hireDate: '', category: 'feg', status: 'funcamp_pending' },
+  { id: '33', name: 'Josué Benedito', position: 'Auxiliar de Compras Pleno', salary: 3857.57, hireDate: '', category: 'feg', status: 'funcamp_pending' },
+  { id: '34', name: 'Joyce Isis Jordão Anequini', position: 'Oficial Administrativo Júnior', salary: 2173.31, hireDate: '', category: 'feg', status: 'funcamp_pending' },
+  { id: '35', name: 'Cristiane Rodrigues de Oliveira', position: 'Auxiliar de Serviços Gerais', salary: 0, hireDate: '', category: 'feg', status: 'funcamp_pending', observations: 'INSS' },
+  { id: '36', name: 'Eliane Cristina Moraes Santangelo', position: 'Auxiliar de Serviços Gerais', salary: 0, hireDate: '', category: 'feg', status: 'funcamp_pending', observations: 'INSS' },
   
-  // INSS - Afastados
-  { id: '31', name: 'Darlene da Silva Vieira', position: 'Oficial Administrativo Pleno', salary: 0, hireDate: '', category: 'inss', status: 'inss_leave', observations: 'Contrato suspenso' },
-  { id: '32', name: 'Eliane Cristina Moraes Santangelo', position: 'Auxiliar de Serviços Gerais', salary: 0, hireDate: '', category: 'inss', status: 'inss_leave', observations: 'INSS' },
+  // ADMINISTRATIVOS CEGEP - Decisão Pendente
+  { id: '41', name: 'Maria do Carmo Quaresma Antonio', position: 'Analista de Recursos Humanos', salary: 5705.11, hireDate: '', category: 'maintain', status: 'maintain_2026', observations: 'Aposentadoria próxima - manter até 2026' },
+  { id: '42', name: 'Vera Lucia Pereira da Silva', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '', category: 'maintain', status: 'maintain_2026', observations: 'Manter para atividades administrativas' },
+  { id: '43', name: 'Maria do Carmo da Conceição Marques', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '', category: 'maintain', status: 'maintain_2026', observations: 'Manter para atividades administrativas' },
   
-  // Manter até 2026
-  { id: '41', name: 'Maria do Carmo Quaresma Antonio', position: 'Analista de Recursos Humanos', salary: 5705.11, hireDate: '', category: 'maintain', status: 'maintain_2026', observations: 'Aposentadoria próxima' },
-  { id: '42', name: 'Vera Lucia Pereira da Silva', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '', category: 'maintain', status: 'maintain_2026' },
+  // INSS - Afastados (contrato suspenso)
+  { id: '51', name: 'Darlene da Silva Vieira', position: 'Oficial Administrativo Pleno', salary: 0, hireDate: '', category: 'inss', status: 'inss_leave', observations: 'Contrato suspenso' },
 ]
 
 const categoryLabels = {

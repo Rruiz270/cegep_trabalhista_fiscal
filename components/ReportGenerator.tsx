@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Download, FileText, Calendar, AlertTriangle, DollarSign } from 'lucide-react'
+import { Download, FileText, Calendar, AlertTriangle, DollarSign, Users, TrendingDown, TrendingUp, Clock, CheckCircle, XCircle } from 'lucide-react'
 import { Employee, TaxRisk } from '@/types'
 
 export default function ReportGenerator() {
@@ -10,8 +10,29 @@ export default function ReportGenerator() {
   
   // Mock data - em produção, isso viria do estado global ou context
   const mockEmployees: Employee[] = [
+    // PROFESSORES (16 total)
     { id: '1', name: 'Adelino Bortolto Filho', position: 'Professor de Administração', salary: 2535.50, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '2', name: 'Maria do Carmo Quaresma Antonio', position: 'Analista de Recursos Humanos', salary: 5705.11, hireDate: '', category: 'maintain', status: 'maintain_2026' },
+    { id: '2', name: 'Antonio de Pádua Lelis Scanavachi', position: 'Professor de Seg. do Trabalho', salary: 1247.61, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    { id: '3', name: 'Bibiano Francisco Eloi Junior', position: 'Professor de Administração', salary: 1671.21, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    { id: '4', name: 'Carlos Eduardo de Oliveira', position: 'Professor de Eletrônica', salary: 2451.80, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    { id: '5', name: 'Denison Xavier', position: 'Professor de Eletrônica', salary: 1571.21, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    { id: '6', name: 'Eriel Fernando dos Santos', position: 'Professor', salary: 1467.02, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    { id: '7', name: 'Frederico Gomes Rodrigues', position: 'Professor de Edificações', salary: 1904.77, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    { id: '8', name: 'Guilherme Magano Lanza', position: 'Professor', salary: 1467.02, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    { id: '9', name: 'Igor Vespucci Laurindo', position: 'Professor de Edificações', salary: 1029.20, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    { id: '10', name: 'Iauê Peduto Conceição', position: 'Professor de Edificações', salary: 1014.09, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    { id: '11', name: 'João Paulo Gomes Diplom', position: 'Professor de Seg. do Trabalho', salary: 1659.53, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    { id: '12', name: 'Luis Henrique de Campos', position: 'Professor d Eletrônica', salary: 2429.20, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    { id: '13', name: 'Luiz Donizeti Duarte', position: 'Professor de Edificações', salary: 1587.02, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    { id: '14', name: 'Manuel Rodrigues', position: 'Professor de Administração', salary: 780.59, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    { id: '15', name: 'Rafaela Nunes Ferreira', position: 'Professora de Administração', salary: 1014.09, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    { id: '16', name: 'Tristana Cezaretto', position: 'Professora de Psicologia', salary: 1467.02, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    
+    // ADMINISTRATIVOS
+    { id: '17', name: 'Maria do Carmo Quaresma Antonio', position: 'Analista de Recursos Humanos', salary: 5705.11, hireDate: '', category: 'maintain', status: 'maintain_2026' },
+    { id: '18', name: 'Aline da Silva Vieiosa', position: 'Auxiliar de Serviços Gerais', salary: 4118.50, hireDate: '', category: 'feg', status: 'funcamp_pending' },
+    { id: '19', name: 'Bruno Ferreira dos Santos', position: 'Oficial Administrativo Pleno', salary: 2754.73, hireDate: '', category: 'feg', status: 'funcamp_pending' },
+    { id: '20', name: 'Darlene da Silva Vieira', position: 'Oficial Administrativo Pleno', salary: 0, hireDate: '', category: 'inss', status: 'inss_leave', observations: 'Contrato suspenso' },
   ]
   
   const mockTaxRisks: TaxRisk[] = [
@@ -24,10 +45,19 @@ export default function ReportGenerator() {
       status: 'current',
       riskLevel: 'medium',
       installmentInfo: { current: 8, total: 12, monthlyAmount: 3750.00 }
+    },
+    {
+      id: '2',
+      type: 'tax_obligation',
+      description: 'IRRF - Retenções Pendentes',
+      amount: 12500.00,
+      dueDate: '2024-12-20',
+      status: 'overdue',
+      riskLevel: 'high'
     }
   ]
 
-  const generateEmployeeReport = () => {
+  const calculateAnalytics = () => {
     const dismissed = mockEmployees.filter(emp => emp.status === 'dismissed_december')
     const pending = mockEmployees.filter(emp => emp.status === 'funcamp_pending')
     const maintain = mockEmployees.filter(emp => emp.status === 'maintain_2026')
@@ -36,221 +66,66 @@ export default function ReportGenerator() {
     const dismissedTotal = dismissed.reduce((sum, emp) => sum + emp.salary, 0)
     const pendingTotal = pending.reduce((sum, emp) => sum + emp.salary, 0)
     const maintainTotal = maintain.reduce((sum, emp) => sum + emp.salary, 0)
-
-    return `# Relatório de Riscos Trabalhistas - CEGEP
-
-## Data do Relatório
-**Gerado em:** ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}
-
-## Resumo Executivo
-
-### Situação Geral dos Colaboradores
-- **Total de colaboradores analisados:** ${mockEmployees.length}
-- **Demissões confirmadas (Dezembro 2024):** ${dismissed.length}
-- **Decisão pendente FUNCAMP:** ${pending.length}
-- **Manutenção até 2026:** ${maintain.length}
-- **Afastados INSS:** ${inss.length}
-
-### Impacto Financeiro Mensal
-- **Economia com demissões:** R$ ${dismissedTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-- **Pendente decisão FUNCAMP:** R$ ${pendingTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-- **Manutenção obrigatória:** R$ ${maintainTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-
-## Detalhamento por Categoria
-
-### 1. Demissões Confirmadas - 15 de Dezembro de 2024
-${dismissed.length > 0 ? dismissed.map(emp => 
-  `- **${emp.name}** - ${emp.position} - R$ ${emp.salary.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
-).join('\n') : 'Nenhum colaborador nesta categoria'}
-
-**Subtotal:** R$ ${dismissedTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-
-### 2. Decisão Pendente FUNCAMP
-${pending.length > 0 ? pending.map(emp => 
-  `- **${emp.name}** - ${emp.position} - R$ ${emp.salary.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
-).join('\n') : 'Nenhum colaborador nesta categoria'}
-
-**Prazo para decisão:** Até início de 2026
-**Subtotal:** R$ ${pendingTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-
-### 3. Manutenção até 2026
-${maintain.length > 0 ? maintain.map(emp => 
-  `- **${emp.name}** - ${emp.position} - R$ ${emp.salary.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}${emp.observations ? ` - *${emp.observations}*` : ''}`
-).join('\n') : 'Nenhum colaborador nesta categoria'}
-
-**Subtotal:** R$ ${maintainTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-
-### 4. Afastados INSS
-${inss.length > 0 ? inss.map(emp => 
-  `- **${emp.name}** - ${emp.position}${emp.observations ? ` - *${emp.observations}*` : ''}`
-).join('\n') : 'Nenhum colaborador nesta categoria'}
-
-## Riscos Identificados
-
-### 📋 Lacunas de Informação
-- [ ] **Datas de contratação** de todos os colaboradores (necessário para cálculo de verbas rescisórias)
-- [ ] **Situação previdenciária** detalhada da Maria Quaresma (data prevista de aposentadoria)
-- [ ] **Documentação trabalhista** completa (contratos, folhas de pagamento)
-- [ ] **Provisões existentes** para passivo trabalhista
-- [ ] **Prestação de contas** ao Ministério Público (documentação atual)
-
-### ⚠️ Riscos Trabalhistas
-1. **Alto Risco:** Demissões em massa sem provisão adequada
-2. **Médio Risco:** Colaboradores FEG dependentes de decisão FUNCAMP
-3. **Baixo Risco:** Colaboradores com permanência garantida até 2026
-
-### 💰 Estimativa de Passivo Trabalhista
-- **Aviso prévio:** A calcular (dependente das datas de contratação)
-- **13º salário proporcional:** A calcular
-- **Férias proporcionais + 1/3:** A calcular
-- **FGTS + 40% de multa:** A calcular
-
-**⚠️ ATENÇÃO:** Cálculos finais dependem das informações pendentes listadas acima.
-
-## Recomendações
-
-1. **Imediato:**
-   - Obter datas de contratação de todos os colaboradores
-   - Solicitar documentação trabalhista completa
-   - Verificar provisões existentes
-
-2. **Curto prazo (até dezembro 2024):**
-   - Calcular verbas rescisórias para demissões confirmadas
-   - Preparar documentação para demissões
-   - Definir cronograma de desligamentos
-
-3. **Médio prazo (até 2026):**
-   - Acompanhar decisão FUNCAMP sobre colaboradores FEG
-   - Planejar aposentadoria da Maria Quaresma
-   - Avaliar necessidade de contratações de substituição
-
-## Observações Importantes
-
-- Todos os colaboradores batem ponto e são registrados conforme legislação
-- A associação presta contas ao Ministério Público
-- Situação trabalhista declarada como regular pela presidência da associação
-
----
-**Documento gerado automaticamente pelo Sistema de Gestão de Riscos CEGEP**`
-  }
-
-  const generateTaxReport = () => {
-    const current = mockTaxRisks.filter(risk => risk.status === 'current')
-    const overdue = mockTaxRisks.filter(risk => risk.status === 'overdue')
-    const highRisk = mockTaxRisks.filter(risk => risk.riskLevel === 'high')
-    const totalAmount = mockTaxRisks.reduce((sum, risk) => sum + risk.amount, 0)
-
-    return `# Relatório de Riscos Fiscais - CEGEP
-
-## Data do Relatório
-**Gerado em:** ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}
-
-## Resumo Executivo
-
-### Situação Fiscal Geral
-- **Total de obrigações/riscos:** ${mockTaxRisks.length}
-- **Valor total:** R$ ${totalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-- **Em situação regular:** ${current.length}
-- **Vencidos/em atraso:** ${overdue.length}
-- **Alto risco:** ${highRisk.length}
-
-## Detalhamento por Status
-
-### ✅ Obrigações em Dia
-${current.map(risk => `
-**${risk.description}**
-- Valor: R$ ${risk.amount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-- Vencimento: ${new Date(risk.dueDate).toLocaleDateString('pt-BR')}
-- Tipo: ${risk.type === 'installment' ? 'Parcelamento' : risk.type === 'debt' ? 'Dívida' : 'Obrigação Fiscal'}
-${risk.installmentInfo ? `- Situação do parcelamento: ${risk.installmentInfo.current}/${risk.installmentInfo.total} parcelas` : ''}
-${risk.observations ? `- Observações: ${risk.observations}` : ''}
-`).join('\n')}
-
-### ❌ Obrigações Vencidas
-${overdue.length > 0 ? overdue.map(risk => `
-**${risk.description}**
-- Valor: R$ ${risk.amount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-- Vencimento: ${new Date(risk.dueDate).toLocaleDateString('pt-BR')} ⚠️
-- Tipo: ${risk.type === 'installment' ? 'Parcelamento' : risk.type === 'debt' ? 'Dívida' : 'Obrigação Fiscal'}
-${risk.installmentInfo ? `- Situação do parcelamento: ${risk.installmentInfo.current}/${risk.installmentInfo.total} parcelas` : ''}
-${risk.observations ? `- Observações: ${risk.observations}` : ''}
-`).join('\n') : 'Nenhuma obrigação vencida identificada.'}
-
-## Parcelamentos Ativos
-
-${mockTaxRisks.filter(risk => risk.installmentInfo).map(risk => `
-**${risk.description}**
-- Parcela atual: ${risk.installmentInfo!.current}/${risk.installmentInfo!.total}
-- Valor mensal: R$ ${risk.installmentInfo!.monthlyAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-- Parcelas restantes: ${risk.installmentInfo!.total - risk.installmentInfo!.current}
-- Valor restante: R$ ${((risk.installmentInfo!.total - risk.installmentInfo!.current) * risk.installmentInfo!.monthlyAmount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-`).join('\n')}
-
-## Análise de Risco
-
-### 🔴 Alto Risco
-${highRisk.length > 0 ? highRisk.map(risk => `
-- **${risk.description}**: R$ ${risk.amount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-  Motivo: ${risk.observations || 'Valor elevado ou vencimento crítico'}
-`).join('\n') : 'Nenhum item de alto risco identificado.'}
-
-## Cronograma de Vencimentos
-
-${mockTaxRisks.sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()).map(risk => `
-**${new Date(risk.dueDate).toLocaleDateString('pt-BR')}** - ${risk.description} - R$ ${risk.amount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-`).join('\n')}
-
-## Recomendações
-
-### Imediatas
-- Regularizar obrigações vencidas para evitar multas e juros
-- Acompanhar cronograma de parcelamentos ativos
-- Verificar situação junto aos órgãos competentes
-
-### Preventivas
-- Criar calendário fiscal com alertas de vencimento
-- Manter provisões para obrigações recorrentes
-- Revisar regularmente a situação dos parcelamentos
-
-## Observações Importantes
-
-⚠️ **LACUNAS DE INFORMAÇÃO:**
-- Consultar situação atual dos parcelamentos junto aos órgãos
-- Verificar se existem outras obrigações não catalogadas
-- Confirmar valores e datas junto à contabilidade
-
----
-**Documento gerado automaticamente pelo Sistema de Gestão de Riscos CEGEP**`
-  }
-
-  const generateCompleteReport = () => {
-    return `${generateEmployeeReport()}
-
----
-
-${generateTaxReport()}`
-  }
-
-  useEffect(() => {
-    switch (reportType) {
-      case 'employees':
-        setReportData(generateEmployeeReport())
-        break
-      case 'tax':
-        setReportData(generateTaxReport())
-        break
-      case 'complete':
-        setReportData(generateCompleteReport())
-        break
+    
+    const totalTaxRisk = mockTaxRisks.reduce((sum, risk) => sum + risk.amount, 0)
+    const overdueTax = mockTaxRisks.filter(risk => risk.status === 'overdue').reduce((sum, risk) => sum + risk.amount, 0)
+    
+    return {
+      employees: {
+        total: mockEmployees.length,
+        dismissed: dismissed.length,
+        pending: pending.length,
+        maintain: maintain.length,
+        inss: inss.length,
+        dismissedTotal,
+        pendingTotal,
+        maintainTotal,
+        totalSavings: dismissedTotal + pendingTotal
+      },
+      tax: {
+        total: mockTaxRisks.length,
+        totalAmount: totalTaxRisk,
+        overdueAmount: overdueTax,
+        currentAmount: totalTaxRisk - overdueTax,
+        highRisk: mockTaxRisks.filter(risk => risk.riskLevel === 'high').length
+      }
     }
-  }, [reportType])
+  }
+
+  const analytics = calculateAnalytics()
+
+  const generateMarkdownReport = () => {
+    return `# Relatório Executivo CEGEP - ${new Date().toLocaleDateString('pt-BR')}
+
+## Resumo Executivo
+
+### 📊 Situação dos Colaboradores
+- **Total:** ${analytics.employees.total} colaboradores
+- **Demissões confirmadas:** ${analytics.employees.dismissed} (15/12/2024)
+- **Economia mensal:** R$ ${analytics.employees.totalSavings.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+
+### 💰 Situação Fiscal
+- **Riscos identificados:** ${analytics.tax.total}
+- **Valor total:** R$ ${analytics.tax.totalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+- **Vencidos:** R$ ${analytics.tax.overdueAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+
+### ⚠️ Ações Prioritárias
+1. Finalizar demissões programadas para dezembro
+2. Aguardar decisão FUNCAMP sobre ${analytics.employees.pending} colaboradores
+3. Regularizar obrigações fiscais vencidas
+4. Coletar informações pendentes para cálculo de verbas rescisórias
+
+---
+Relatório gerado automaticamente em ${new Date().toLocaleString('pt-BR')}`
+  }
 
   const downloadReport = () => {
-    const blob = new Blob([reportData], { type: 'text/markdown' })
+    const report = generateMarkdownReport()
+    const blob = new Blob([report], { type: 'text/markdown' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `relatorio-cegep-${reportType}-${new Date().toISOString().split('T')[0]}.md`
+    a.download = `relatorio-executivo-cegep-${new Date().toISOString().split('T')[0]}.md`
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -258,85 +133,303 @@ ${generateTaxReport()}`
   }
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(reportData)
+    const report = generateMarkdownReport()
+    navigator.clipboard.writeText(report)
     alert('Relatório copiado para a área de transferência!')
   }
 
   return (
-    <div className="space-y-6">
-      {/* Controles */}
-      <div className="flex flex-col sm:flex-row gap-4 justify-between items-start">
-        <div className="space-y-2">
-          <h2 className="text-xl font-semibold text-gray-900">Gerador de Relatórios</h2>
-          <p className="text-gray-600">Selecione o tipo de relatório e visualize ou baixe em formato Markdown</p>
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900">Dashboard Executivo</h2>
+          <p className="text-gray-600 mt-1">Análise completa dos riscos trabalhistas e fiscais</p>
+          <p className="text-sm text-gray-500">Última atualização: {new Date().toLocaleDateString('pt-BR')} às {new Date().toLocaleTimeString('pt-BR')}</p>
         </div>
-        <div className="flex flex-col sm:flex-row gap-2">
-          <select
-            value={reportType}
-            onChange={(e) => setReportType(e.target.value as any)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="complete">Relatório Completo</option>
-            <option value="employees">Apenas Riscos Trabalhistas</option>
-            <option value="tax">Apenas Riscos Fiscais</option>
-          </select>
+        <div className="flex gap-2 mt-4 sm:mt-0">
           <button
             onClick={copyToClipboard}
-            className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
+            className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
           >
             <FileText size={16} />
             Copiar
           </button>
           <button
             onClick={downloadReport}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             <Download size={16} />
-            Baixar .md
+            Exportar .md
           </button>
         </div>
       </div>
 
-      {/* Preview do Relatório */}
-      <div className="bg-white rounded-lg shadow">
-        <div className="p-4 border-b border-gray-200">
-          <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-            <FileText className="text-blue-600" size={20} />
-            Preview do Relatório
-          </h3>
+      {/* Métricas Principais */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="bg-gradient-to-r from-red-500 to-red-600 p-6 rounded-xl text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-red-100 text-sm">Demissões Dezembro</p>
+              <p className="text-3xl font-bold">{analytics.employees.dismissed}</p>
+              <p className="text-red-100 text-sm">R$ {analytics.employees.dismissedTotal.toLocaleString('pt-BR')}/mês</p>
+            </div>
+            <TrendingDown className="text-red-200" size={32} />
+          </div>
         </div>
-        <div className="p-6">
-          <pre className="whitespace-pre-wrap text-sm text-gray-700 font-mono bg-gray-50 p-4 rounded-lg overflow-x-auto max-h-96">
-            {reportData}
-          </pre>
+        
+        <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 p-6 rounded-xl text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-yellow-100 text-sm">FUNCAMP Pendente</p>
+              <p className="text-3xl font-bold">{analytics.employees.pending}</p>
+              <p className="text-yellow-100 text-sm">R$ {analytics.employees.pendingTotal.toLocaleString('pt-BR')}/mês</p>
+            </div>
+            <Clock className="text-yellow-200" size={32} />
+          </div>
+        </div>
+        
+        <div className="bg-gradient-to-r from-green-500 to-green-600 p-6 rounded-xl text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-green-100 text-sm">Economia Total</p>
+              <p className="text-3xl font-bold">R$ {Math.round(analytics.employees.totalSavings/1000)}K</p>
+              <p className="text-green-100 text-sm">{analytics.employees.dismissed + analytics.employees.pending} colaboradores</p>
+            </div>
+            <TrendingUp className="text-green-200" size={32} />
+          </div>
+        </div>
+        
+        <div className="bg-gradient-to-r from-purple-500 to-purple-600 p-6 rounded-xl text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-purple-100 text-sm">Risco Fiscal</p>
+              <p className="text-3xl font-bold">R$ {Math.round(analytics.tax.totalAmount/1000)}K</p>
+              <p className="text-purple-100 text-sm">{analytics.tax.total} obrigações</p>
+            </div>
+            <AlertTriangle className="text-purple-200" size={32} />
+          </div>
         </div>
       </div>
 
-      {/* Informações Adicionais */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h4 className="font-semibold text-blue-900 flex items-center gap-2 mb-2">
-            <AlertTriangle size={16} />
+      {/* Análise Detalhada */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Riscos Trabalhistas */}
+        <div className="bg-white rounded-xl shadow-lg p-6">
+          <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+            <Users className="text-blue-600" size={24} />
+            Análise Trabalhista
+          </h3>
+          
+          <div className="space-y-4">
+            <div className="flex justify-between items-center p-4 bg-red-50 rounded-lg border border-red-200">
+              <div className="flex items-center gap-3">
+                <XCircle className="text-red-600" size={20} />
+                <span className="font-medium text-red-900">Demissões Confirmadas</span>
+              </div>
+              <div className="text-right">
+                <p className="font-bold text-red-600">{analytics.employees.dismissed}</p>
+                <p className="text-sm text-red-500">15 dezembro</p>
+              </div>
+            </div>
+            
+            <div className="flex justify-between items-center p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+              <div className="flex items-center gap-3">
+                <Clock className="text-yellow-600" size={20} />
+                <span className="font-medium text-yellow-900">Decisão Pendente</span>
+              </div>
+              <div className="text-right">
+                <p className="font-bold text-yellow-600">{analytics.employees.pending}</p>
+                <p className="text-sm text-yellow-500">FUNCAMP</p>
+              </div>
+            </div>
+            
+            <div className="flex justify-between items-center p-4 bg-green-50 rounded-lg border border-green-200">
+              <div className="flex items-center gap-3">
+                <CheckCircle className="text-green-600" size={20} />
+                <span className="font-medium text-green-900">Manter até 2026</span>
+              </div>
+              <div className="text-right">
+                <p className="font-bold text-green-600">{analytics.employees.maintain}</p>
+                <p className="text-sm text-green-500">Essenciais</p>
+              </div>
+            </div>
+            
+            <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="flex items-center gap-3">
+                <Users className="text-gray-600" size={20} />
+                <span className="font-medium text-gray-900">Afastados INSS</span>
+              </div>
+              <div className="text-right">
+                <p className="font-bold text-gray-600">{analytics.employees.inss}</p>
+                <p className="text-sm text-gray-500">Licença</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+            <h4 className="font-semibold text-blue-900 mb-2">Impacto Financeiro</h4>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <p className="text-blue-700">Economia Mensal:</p>
+                <p className="font-bold text-blue-900">R$ {analytics.employees.totalSavings.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
+              </div>
+              <div>
+                <p className="text-blue-700">Economia Anual:</p>
+                <p className="font-bold text-blue-900">R$ {(analytics.employees.totalSavings * 12).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Riscos Fiscais */}
+        <div className="bg-white rounded-xl shadow-lg p-6">
+          <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+            <DollarSign className="text-green-600" size={24} />
+            Análise Fiscal
+          </h3>
+          
+          <div className="space-y-4">
+            <div className="flex justify-between items-center p-4 bg-green-50 rounded-lg border border-green-200">
+              <div className="flex items-center gap-3">
+                <CheckCircle className="text-green-600" size={20} />
+                <span className="font-medium text-green-900">Em Situação Regular</span>
+              </div>
+              <div className="text-right">
+                <p className="font-bold text-green-600">R$ {analytics.tax.currentAmount.toLocaleString('pt-BR')}</p>
+                <p className="text-sm text-green-500">Em dia</p>
+              </div>
+            </div>
+            
+            <div className="flex justify-between items-center p-4 bg-red-50 rounded-lg border border-red-200">
+              <div className="flex items-center gap-3">
+                <AlertTriangle className="text-red-600" size={20} />
+                <span className="font-medium text-red-900">Obrigações Vencidas</span>
+              </div>
+              <div className="text-right">
+                <p className="font-bold text-red-600">R$ {analytics.tax.overdueAmount.toLocaleString('pt-BR')}</p>
+                <p className="text-sm text-red-500">Urgente</p>
+              </div>
+            </div>
+            
+            <div className="flex justify-between items-center p-4 bg-orange-50 rounded-lg border border-orange-200">
+              <div className="flex items-center gap-3">
+                <AlertTriangle className="text-orange-600" size={20} />
+                <span className="font-medium text-orange-900">Alto Risco</span>
+              </div>
+              <div className="text-right">
+                <p className="font-bold text-orange-600">{analytics.tax.highRisk}</p>
+                <p className="text-sm text-orange-500">Itens</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 p-4 bg-purple-50 rounded-lg">
+            <h4 className="font-semibold text-purple-900 mb-2">Status dos Parcelamentos</h4>
+            <div className="space-y-2">
+              {mockTaxRisks.filter(risk => risk.installmentInfo).map(risk => (
+                <div key={risk.id} className="flex justify-between items-center">
+                  <span className="text-sm text-purple-700">{risk.description.split(' ')[0]}</span>
+                  <div className="text-sm">
+                    <span className="font-medium text-purple-900">{risk.installmentInfo!.current}/{risk.installmentInfo!.total}</span>
+                    <span className="text-purple-600 ml-2">({Math.round((risk.installmentInfo!.current / risk.installmentInfo!.total) * 100)}%)</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Timeline de Ações */}
+      <div className="bg-white rounded-xl shadow-lg p-6">
+        <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+          <Calendar className="text-indigo-600" size={24} />
+          Cronograma de Ações Prioritárias
+        </h3>
+        
+        <div className="space-y-4">
+          <div className="flex items-center gap-4 p-4 bg-red-50 rounded-lg border-l-4 border-red-500">
+            <div className="flex-shrink-0">
+              <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-sm font-bold">1</span>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-semibold text-red-900">15 de Dezembro de 2024</h4>
+              <p className="text-red-700">Demissão de {analytics.employees.dismissed} colaboradores (professores e administrativos)</p>
+              <p className="text-sm text-red-600">Economia: R$ {analytics.employees.dismissedTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}/mês</p>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-4 p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-500">
+            <div className="flex-shrink-0">
+              <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-sm font-bold">2</span>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-semibold text-yellow-900">Até Janeiro de 2026</h4>
+              <p className="text-yellow-700">Aguardar decisão FUNCAMP sobre absorção de {analytics.employees.pending} colaboradores FEG</p>
+              <p className="text-sm text-yellow-600">Valor envolvido: R$ {analytics.employees.pendingTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}/mês</p>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+            <div className="flex-shrink-0">
+              <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-sm font-bold">3</span>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-semibold text-blue-900">Imediatamente</h4>
+              <p className="text-blue-700">Coletar informações pendentes: datas de contratação, documentação trabalhista</p>
+              <p className="text-sm text-blue-600">Necessário para cálculo preciso de verbas rescisórias</p>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-4 p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+            <div className="flex-shrink-0">
+              <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-sm font-bold">4</span>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-semibold text-purple-900">Regularização Fiscal</h4>
+              <p className="text-purple-700">Resolver obrigações vencidas no valor de R$ {analytics.tax.overdueAmount.toLocaleString('pt-BR')}</p>
+              <p className="text-sm text-purple-600">Evitar multas e juros adicionais</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Informações Complementares */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-6">
+          <h4 className="font-semibold text-amber-900 flex items-center gap-2 mb-4">
+            <AlertTriangle size={20} className="text-amber-600" />
             Informações Pendentes
           </h4>
-          <ul className="text-sm text-blue-800 space-y-1">
-            <li>• Datas de contratação dos colaboradores</li>
+          <ul className="space-y-2 text-sm text-amber-800">
+            <li>• Datas de contratação de todos os colaboradores</li>
             <li>• Documentação trabalhista completa</li>
             <li>• Situação atual dos parcelamentos fiscais</li>
-            <li>• Provisões existentes para passivos</li>
+            <li>• Data prevista de aposentadoria - Maria Quaresma</li>
+            <li>• Provisões existentes para passivo trabalhista</li>
           </ul>
         </div>
         
-        <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-          <h4 className="font-semibold text-green-900 flex items-center gap-2 mb-2">
-            <Calendar size={16} />
-            Próximos Passos
+        <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-6">
+          <h4 className="font-semibold text-emerald-900 flex items-center gap-2 mb-4">
+            <CheckCircle size={20} className="text-emerald-600" />
+            Status Confirmado
           </h4>
-          <ul className="text-sm text-green-800 space-y-1">
-            <li>• Coletar informações pendentes</li>
-            <li>• Calcular verbas rescisórias</li>
-            <li>• Acompanhar decisão FUNCAMP</li>
-            <li>• Atualizar sistema regularmente</li>
+          <ul className="space-y-2 text-sm text-emerald-800">
+            <li>• Colaboradores registrados conforme CLT</li>
+            <li>• Prestação de contas regular ao MP</li>
+            <li>• Controle de ponto implementado</li>
+            <li>• Pagamentos em dia (declarado pela presidência)</li>
+            <li>• Sistema de gestão de riscos operacional</li>
           </ul>
         </div>
       </div>
