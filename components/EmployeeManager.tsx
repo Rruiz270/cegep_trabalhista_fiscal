@@ -5,28 +5,28 @@ import { PlusCircle, Edit, Trash2, AlertTriangle, CheckCircle, Clock } from 'luc
 import { Employee } from '@/types'
 
 const initialEmployees: Employee[] = [
-  // ADMINISTRATIVOS CEGEP - Dados reais da planilha oficial
-  { id: '1', name: 'Ademar de Oliveira Viotto', position: 'Trabalhador da Manutenção', salary: 4427.00, hireDate: '27/07/2020', category: 'administrative', status: 'dismissed_december', severancePay: 21422.87, observations: '5 anos, 3 meses, 30 dias de trabalho' },
-  { id: '2', name: 'Aline da Silva Barbosa', position: 'Auxiliar de Tesouraria', salary: 4118.51, hireDate: '03/10/2019', category: 'administrative', status: 'dismissed_december', severancePay: 13960.11, observations: '6 anos, 1 mês, 23 dias de trabalho' },
-  { id: '3', name: 'Amilton Fernando Lourenço', position: 'Trabalhador da Manutenção', salary: 4427.00, hireDate: '01/08/2013', category: 'administrative', status: 'dismissed_december', severancePay: 26180.04, observations: '12 anos, 3 meses, 25 dias de trabalho' },
-  { id: '4', name: 'Carla Regina Bruno', position: 'Secretária Acadêmica', salary: 4614.85, hireDate: '20/01/2021', category: 'administrative', status: 'dismissed_december', severancePay: 24955.10, observations: '4 anos, 10 meses, 6 dias de trabalho' },
-  { id: '5', name: 'Evandro Ricardo Sabino de Souza', position: 'Inspetor de Alunos', salary: 2479.97, hireDate: '02/02/2004', category: 'administrative', status: 'dismissed_december', severancePay: 18690.19, observations: '21 anos, 9 meses, 24 dias de trabalho' },
-  { id: '6', name: 'Fátima Helena Cheregati', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '17/11/2017', category: 'administrative', status: 'dismissed_december', severancePay: 9914.13, observations: '8 anos, 0 meses, 9 dias de trabalho' },
-  { id: '7', name: 'Henrique Francisco Seixas', position: 'Assessor Jurídico', salary: 5677.64, hireDate: '10/04/2021', category: 'administrative', status: 'dismissed_december', severancePay: 29172.34, observations: '4 anos, 7 meses, 16 dias de trabalho' },
-  { id: '8', name: 'Juliano Luiz do Amaral', position: 'Assistente de T.I.', salary: 4960.96, hireDate: '10/03/2011', category: 'administrative', status: 'dismissed_december', severancePay: 32061.98, observations: '14 anos, 8 meses, 16 dias de trabalho' },
-  { id: '9', name: 'Maria do Carmo da Conceição Marques', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '20/10/2006', category: 'maintain', status: 'maintain_2026', severancePay: 12394.83, observations: '19 anos, 1 mês, 6 dias - Manter até 2026' },
-  { id: '10', name: 'Maria do Carmo Quaresma Antonio', position: 'Analista de R.H.', salary: 5705.11, hireDate: '07/04/2021', category: 'maintain', status: 'maintain_2026', severancePay: 29309.50, observations: '4 anos, 7 meses, 19 dias - Aposentadoria próxima' },
-  { id: '11', name: 'Vera Lucia Pereira da Silva', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '15/08/2011', category: 'maintain', status: 'maintain_2026', severancePay: 11598.32, observations: '14 anos, 3 meses, 11 dias - Manter até 2026' },
+  // DEMISSÕES CONFIRMADAS - 15 DE DEZEMBRO (14 total)
+  { id: '1', name: 'Ademar de Oliveira Viotto', position: 'Trabalhador da Manutenção', salary: 4427.00, hireDate: '27/07/2020', category: 'administrative', status: 'dismissed_december', severancePay: 21422.87, observations: '5 anos, 3 meses, 30 dias - Demissão 15/12/2024' },
+  { id: '2', name: 'Aline da Silva Barbosa', position: 'Auxiliar de Tesouraria', salary: 4118.51, hireDate: '03/10/2019', category: 'administrative', status: 'dismissed_december', severancePay: 13960.11, observations: '6 anos, 1 mês, 23 dias - Demissão 15/12/2024' },
+  { id: '3', name: 'Amilton Fernando Lourenço', position: 'Trabalhador da Manutenção', salary: 4427.00, hireDate: '01/08/2013', category: 'administrative', status: 'dismissed_december', severancePay: 26180.04, observations: '12 anos, 3 meses, 25 dias - Demissão 15/12/2024' },
+  { id: '4', name: 'Carla Regina Bruno', position: 'Secretária Acadêmica', salary: 4614.85, hireDate: '20/01/2021', category: 'administrative', status: 'dismissed_december', severancePay: 24955.10, observations: '4 anos, 10 meses, 6 dias - Demissão 15/12/2024' },
+  { id: '5', name: 'Evandro Ricardo Sabino de Souza', position: 'Inspetor de Alunos', salary: 2479.97, hireDate: '02/02/2004', category: 'administrative', status: 'dismissed_december', severancePay: 18690.19, observations: '21 anos, 9 meses, 24 dias - Demissão 15/12/2024' },
+  { id: '6', name: 'Fátima Helena Cheregati', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '17/11/2017', category: 'administrative', status: 'dismissed_december', severancePay: 9914.13, observations: '8 anos, 0 meses, 9 dias - Demissão 15/12/2024' },
+  { id: '7', name: 'Henrique Francisco Seixas', position: 'Assessor Jurídico', salary: 5677.64, hireDate: '10/04/2021', category: 'administrative', status: 'dismissed_december', severancePay: 29172.34, observations: '4 anos, 7 meses, 16 dias - Demissão 15/12/2024' },
+  { id: '8', name: 'Juliano Luiz do Amaral', position: 'Assistente de T.I.', salary: 4960.96, hireDate: '10/03/2011', category: 'administrative', status: 'dismissed_december', severancePay: 32061.98, observations: '14 anos, 8 meses, 16 dias - Demissão 15/12/2024' },
+  { id: '9', name: 'Maria do Carmo da Conceição Marques', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '20/10/2006', category: 'administrative', status: 'dismissed_december', severancePay: 12394.83, observations: '19 anos, 1 mês, 6 dias - Demissão 15/12/2024' },
+  { id: '10', name: 'Vera Lucia Pereira da Silva', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '15/08/2011', category: 'administrative', status: 'dismissed_december', severancePay: 11598.32, observations: '14 anos, 3 meses, 11 dias - Demissão 15/12/2024' },
+  { id: '11', name: 'Bruno Ferreira dos Santos', position: 'Oficial Administrativo Pleno', salary: 2754.73, hireDate: '02/05/2018', category: 'administrative', status: 'dismissed_december', severancePay: 15587.12, observations: '7 anos, 6 meses, 24 dias - Demissão 15/12/2024' },
+  { id: '12', name: 'Josue Benedito', position: 'Auxiliar de Compras Pleno', salary: 3857.57, hireDate: '07/08/2024', category: 'administrative', status: 'dismissed_december', severancePay: 12344.37, observations: '1 ano, 3 meses, 19 dias - Demissão 15/12/2024' },
+  { id: '13', name: 'Joyce Isis Jordão Anequini', position: 'Oficial Administrativo Júnior', salary: 2173.31, hireDate: '09/08/2024', category: 'administrative', status: 'dismissed_december', severancePay: 10068.39, observations: '1 ano, 3 meses, 17 dias - Demissão 15/12/2024' },
+  { id: '14', name: 'Cristiane Rodrigues de Oliveira', position: 'Auxiliar de Serviços Gerais', salary: 0, hireDate: '05/09/2022', category: 'administrative', status: 'dismissed_december', observations: '3 anos, 2 meses, 21 dias - INSS - Demissão 15/12/2024' },
+  
+  // MANTER ATÉ 2026 (3 colaboradores essenciais)
+  { id: '15', name: 'Maria do Carmo Quaresma Antonio', position: 'Analista de R.H.', salary: 5705.11, hireDate: '07/04/2021', category: 'maintain', status: 'maintain_2026', severancePay: 29309.50, observations: '4 anos, 7 meses, 19 dias - Aposentadoria próxima - Manter até 2026' },
+  { id: '16', name: 'Eliane Cristina Moraes Santangelo', position: 'Auxiliar de Serviços Gerais', salary: 0, hireDate: '05/09/2022', category: 'maintain', status: 'maintain_2026', observations: '3 anos, 2 meses, 21 dias - INSS - Manter até 2026 para atividades essenciais' },
   
   // AFASTADO INSS - Contrato suspenso
-  { id: '12', name: 'Darlene da Silva Vieira', position: 'Oficial Administrativo Pleno', salary: 0, hireDate: '10/07/2012', category: 'inss', status: 'inss_leave', observations: '13 anos, 4 meses, 16 dias - Contrato suspenso' },
-  
-  // FUNCIONÁRIOS FEG - Decisão FUNCAMP pendente
-  { id: '13', name: 'Bruno Ferreira dos Santos', position: 'Oficial Administrativo Pleno', salary: 2754.73, hireDate: '02/05/2018', category: 'feg', status: 'funcamp_pending', severancePay: 15587.12, observations: '7 anos, 6 meses, 24 dias - Aguardando decisão FUNCAMP' },
-  { id: '14', name: 'Josue Benedito', position: 'Auxiliar de Compras Pleno', salary: 3857.57, hireDate: '07/08/2024', category: 'feg', status: 'funcamp_pending', severancePay: 12344.37, observations: '1 ano, 3 meses, 19 dias - Aguardando decisão FUNCAMP' },
-  { id: '15', name: 'Joyce Isis Jordão Anequini', position: 'Oficial Administrativo Júnior', salary: 2173.31, hireDate: '09/08/2024', category: 'feg', status: 'funcamp_pending', severancePay: 10068.39, observations: '1 ano, 3 meses, 17 dias - Aguardando decisão FUNCAMP' },
-  { id: '16', name: 'Cristiane Rodrigues de Oliveira', position: 'Auxiliar de Serviços Gerais', salary: 0, hireDate: '05/09/2022', category: 'feg', status: 'funcamp_pending', observations: '3 anos, 2 meses, 21 dias - INSS - Aguardando decisão FUNCAMP' },
-  { id: '17', name: 'Eliane Cristina Moraes Santangelo', position: 'Auxiliar de Serviços Gerais', salary: 0, hireDate: '05/09/2022', category: 'feg', status: 'funcamp_pending', observations: '3 anos, 2 meses, 21 dias - INSS - Aguardando decisão FUNCAMP' },
+  { id: '17', name: 'Darlene da Silva Vieira', position: 'Oficial Administrativo Pleno', salary: 0, hireDate: '10/07/2012', category: 'inss', status: 'inss_leave', observations: '13 anos, 4 meses, 16 dias - Contrato suspenso pelo INSS' },
 ]
 
 const categoryLabels = {

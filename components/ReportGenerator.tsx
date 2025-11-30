@@ -8,9 +8,9 @@ export default function ReportGenerator() {
   const [reportType, setReportType] = useState<'complete' | 'employees' | 'tax'>('complete')
   const [reportData, setReportData] = useState('')
   
-  // Dados reais dos documentos oficiais CEGEP
+  // Dados reais dos documentos oficiais CEGEP - Atualizado conforme decisão
   const mockEmployees: Employee[] = [
-    // ADMINISTRATIVOS CEGEP - Dados da planilha oficial
+    // DEMISSÕES CONFIRMADAS - 15 DE DEZEMBRO (14 colaboradores)
     { id: '1', name: 'Ademar de Oliveira Viotto', position: 'Trabalhador da Manutenção', salary: 4427.00, hireDate: '27/07/2020', category: 'administrative', status: 'dismissed_december', severancePay: 21422.87 },
     { id: '2', name: 'Aline da Silva Barbosa', position: 'Auxiliar de Tesouraria', salary: 4118.51, hireDate: '03/10/2019', category: 'administrative', status: 'dismissed_december', severancePay: 13960.11 },
     { id: '3', name: 'Amilton Fernando Lourenço', position: 'Trabalhador da Manutenção', salary: 4427.00, hireDate: '01/08/2013', category: 'administrative', status: 'dismissed_december', severancePay: 26180.04 },
@@ -19,21 +19,19 @@ export default function ReportGenerator() {
     { id: '6', name: 'Fátima Helena Cheregati', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '17/11/2017', category: 'administrative', status: 'dismissed_december', severancePay: 9914.13 },
     { id: '7', name: 'Henrique Francisco Seixas', position: 'Assessor Jurídico', salary: 5677.64, hireDate: '10/04/2021', category: 'administrative', status: 'dismissed_december', severancePay: 29172.34 },
     { id: '8', name: 'Juliano Luiz do Amaral', position: 'Assistente de T.I.', salary: 4960.96, hireDate: '10/03/2011', category: 'administrative', status: 'dismissed_december', severancePay: 32061.98 },
+    { id: '9', name: 'Maria do Carmo da Conceição Marques', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '20/10/2006', category: 'administrative', status: 'dismissed_december', severancePay: 12394.83 },
+    { id: '10', name: 'Vera Lucia Pereira da Silva', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '15/08/2011', category: 'administrative', status: 'dismissed_december', severancePay: 11598.32 },
+    { id: '11', name: 'Bruno Ferreira dos Santos', position: 'Oficial Administrativo Pleno', salary: 2754.73, hireDate: '02/05/2018', category: 'administrative', status: 'dismissed_december', severancePay: 15587.12 },
+    { id: '12', name: 'Josue Benedito', position: 'Auxiliar de Compras Pleno', salary: 3857.57, hireDate: '07/08/2024', category: 'administrative', status: 'dismissed_december', severancePay: 12344.37 },
+    { id: '13', name: 'Joyce Isis Jordão Anequini', position: 'Oficial Administrativo Júnior', salary: 2173.31, hireDate: '09/08/2024', category: 'administrative', status: 'dismissed_december', severancePay: 10068.39 },
+    { id: '14', name: 'Cristiane Rodrigues de Oliveira', position: 'Auxiliar de Serviços Gerais', salary: 0, hireDate: '05/09/2022', category: 'administrative', status: 'dismissed_december', observations: 'INSS - Demissão 15/12/2024' },
     
-    // COLABORADORES PARA MANTER ATÉ 2026
-    { id: '9', name: 'Maria do Carmo da Conceição Marques', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '20/10/2006', category: 'maintain', status: 'maintain_2026', severancePay: 12394.83 },
-    { id: '10', name: 'Maria do Carmo Quaresma Antonio', position: 'Analista de R.H.', salary: 5705.11, hireDate: '07/04/2021', category: 'maintain', status: 'maintain_2026', severancePay: 29309.50 },
-    { id: '11', name: 'Vera Lucia Pereira da Silva', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '15/08/2011', category: 'maintain', status: 'maintain_2026', severancePay: 11598.32 },
+    // COLABORADORES MANTIDOS ATÉ 2026 (2 essenciais)
+    { id: '15', name: 'Maria do Carmo Quaresma Antonio', position: 'Analista de R.H.', salary: 5705.11, hireDate: '07/04/2021', category: 'maintain', status: 'maintain_2026', severancePay: 29309.50 },
+    { id: '16', name: 'Eliane Cristina Moraes Santangelo', position: 'Auxiliar de Serviços Gerais', salary: 0, hireDate: '05/09/2022', category: 'maintain', status: 'maintain_2026', observations: 'INSS - Manter para atividades essenciais' },
     
-    // FEG - Aguardando decisão FUNCAMP
-    { id: '12', name: 'Bruno Ferreira dos Santos', position: 'Oficial Administrativo Pleno', salary: 2754.73, hireDate: '02/05/2018', category: 'feg', status: 'funcamp_pending', severancePay: 15587.12 },
-    { id: '13', name: 'Josue Benedito', position: 'Auxiliar de Compras Pleno', salary: 3857.57, hireDate: '07/08/2024', category: 'feg', status: 'funcamp_pending', severancePay: 12344.37 },
-    { id: '14', name: 'Joyce Isis Jordão Anequini', position: 'Oficial Administrativo Júnior', salary: 2173.31, hireDate: '09/08/2024', category: 'feg', status: 'funcamp_pending', severancePay: 10068.39 },
-    
-    // AFASTADO INSS
-    { id: '15', name: 'Darlene da Silva Vieira', position: 'Oficial Administrativo Pleno', salary: 0, hireDate: '10/07/2012', category: 'inss', status: 'inss_leave', observations: 'Contrato suspenso' },
-    { id: '16', name: 'Cristiane Rodrigues de Oliveira', position: 'Auxiliar de Serviços Gerais', salary: 0, hireDate: '05/09/2022', category: 'feg', status: 'funcamp_pending', observations: 'INSS' },
-    { id: '17', name: 'Eliane Cristina Moraes Santangelo', position: 'Auxiliar de Serviços Gerais', salary: 0, hireDate: '05/09/2022', category: 'feg', status: 'funcamp_pending', observations: 'INSS' },
+    // AFASTADO INSS - Contrato suspenso
+    { id: '17', name: 'Darlene da Silva Vieira', position: 'Oficial Administrativo Pleno', salary: 0, hireDate: '10/07/2012', category: 'inss', status: 'inss_leave', observations: 'Contrato suspenso pelo INSS' },
   ]
   
   // Dados reais do extrato PERT oficial
@@ -101,46 +99,85 @@ export default function ReportGenerator() {
       .filter(emp => emp.severancePay)
       .reduce((sum, emp) => sum + (emp.severancePay || 0), 0)
     
+    const dismissedEmployees = mockEmployees.filter(emp => emp.status === 'dismissed_december')
+    const maintainEmployees = mockEmployees.filter(emp => emp.status === 'maintain_2026')
+    const inssEmployees = mockEmployees.filter(emp => emp.status === 'inss_leave')
+    
+    const totalMonthlySalary = dismissedEmployees.reduce((sum, emp) => sum + emp.salary, 0)
+    
     return `# Relatório Executivo CEGEP - ${new Date().toLocaleDateString('pt-BR')}
 **CNPJ:** 05.124.602/0001-74 - CENTRO GUAÇUANO DE EDUCAÇÃO PROFISSIONAL
 
 ## Resumo Executivo
 
 ### 📊 Situação dos Colaboradores (Dados Oficiais)
-- **Total de colaboradores:** ${analytics.employees.total}
-- **Demissões confirmadas:** ${analytics.employees.dismissed} funcionários
-- **Economia mensal:** R$ ${analytics.employees.dismissedTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+- **Total de colaboradores analisados:** ${analytics.employees.total}
+- **Demissões confirmadas 15/12/2024:** ${dismissedEmployees.length} funcionários
+- **Economia mensal:** R$ ${totalMonthlySalary.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
 - **Total de verbas rescisórias:** R$ ${totalSeverance.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-- **Folha de pagamento atual:** R$ 51.137,43
+- **Colaboradores mantidos até 2026:** ${maintainEmployees.length}
+- **Afastados INSS:** ${inssEmployees.length}
 
 ### 💰 Situação Fiscal (PERT Oficial)
 - **Parcelamento PERT nº:** 625278925
 - **Saldo devedor:** R$ ${analytics.tax.totalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-- **Parcelas restantes:** 50 de 145
+- **Parcelas pagas:** 95 de 145 (66% concluído)
+- **Parcelas restantes:** 50
 - **Valor mensal:** R$ 9.829,85
 - **Status:** ATIVO (EM DIA)
 - **Previsão término:** Janeiro/2029
 
-### 📅 Cronograma de Ações
-1. **Dezembro 2024:** Demissão de ${analytics.employees.dismissed} funcionários administrativos
-2. **Até 2026:** Aguardar decisão FUNCAMP sobre ${analytics.employees.pending} colaboradores FEG
-3. **2026:** Reavaliar situação dos ${analytics.employees.maintain} colaboradores mantidos
-4. **2029:** Conclusão do parcelamento PERT
+### 📅 Cronograma Atualizado
+1. **15 Dezembro 2024:** 
+   - Demissão de 14 colaboradores
+   - Pagamento de R$ ${totalSeverance.toLocaleString('pt-BR', { minimumFractionDigits: 2 })} em verbas rescisórias
+   
+2. **2025-2026:** 
+   - Manter 2 colaboradores essenciais (Maria Quaresma + Eliane)
+   - Planejar aposentadoria da Maria Quaresma
+   - Monitorar situação dos afastados INSS
+   
+3. **2029:** 
+   - Conclusão do parcelamento PERT
+   - Regularização fiscal completa
 
-### 📉 Impacto Financeiro
-- **Economia anual:** R$ ${(analytics.employees.dismissedTotal * 12).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+### 📉 Impacto Financeiro Anual
+- **Economia com demissões:** R$ ${(totalMonthlySalary * 12).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
 - **Investimento em verbas:** R$ ${totalSeverance.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-- **ROI:** ${Math.round((analytics.employees.dismissedTotal * 12) / totalSeverance * 100)}% ao ano
+- **Payback:** ${Math.round(totalSeverance / totalMonthlySalary)} meses
+- **ROI anual:** ${Math.round((totalMonthlySalary * 12) / totalSeverance * 100)}%
 
-### ⚠️ Status Crítico
-- **Maria Quaresma:** Aposentadoria próxima - planejar substituição
-- **Colaboradores INSS:** Cristiane e Eliane afastadas
-- **Parcelamento PERT:** Manter pagamentos em dia para evitar inscrição em Dívida Ativa
+### 🗓️ Detalhamento das Demissões (15/12/2024)
+
+**Administrativa CEGEP (10):**
+- Ademar de Oliveira Viotto - R$ 21.422,87
+- Aline da Silva Barbosa - R$ 13.960,11
+- Amilton Fernando Lourenço - R$ 26.180,04
+- Carla Regina Bruno - R$ 24.955,10
+- Evandro Ricardo Sabino - R$ 18.690,19
+- Fátima Helena Cheregati - R$ 9.914,13
+- Henrique Francisco Seixas - R$ 29.172,34
+- Juliano Luiz do Amaral - R$ 32.061,98
+- Maria do Carmo da C. Marques - R$ 12.394,83
+- Vera Lucia Pereira da Silva - R$ 11.598,32
+
+**Ex-FEG (4):**
+- Bruno Ferreira dos Santos - R$ 15.587,12
+- Josue Benedito - R$ 12.344,37
+- Joyce Isis Jordão - R$ 10.068,39
+- Cristiane Rodrigues (INSS) - Em análise
+
+### ⚠️ Pontos de Atenção
+- **Maria Quaresma:** Única analista RH - aposentadoria iminente
+- **Eliane:** Manter para continuidade operacional
+- **Darlene:** Contrato suspenso - acompanhar retorno
+- **Parcelamento PERT:** 50 parcelas x R$ 9.829,85 = R$ 491.492,50 restantes
 
 ---
 **Documento baseado em:**
-- Relação de Funcionários ADM (dados oficiais)
-- Extrato PERT 625278925 (atualizado em 27/11/2025)
+- Relação oficial de Funcionários ADM
+- Extrato PERT 625278925 (27/11/2025)
+- Decisão executiva: 14 demissões em 15/12/2024
 
 Relatório gerado automaticamente em ${new Date().toLocaleString('pt-BR')}`
   }
