@@ -8,51 +8,53 @@ export default function ReportGenerator() {
   const [reportType, setReportType] = useState<'complete' | 'employees' | 'tax'>('complete')
   const [reportData, setReportData] = useState('')
   
-  // Mock data - em produção, isso viria do estado global ou context
+  // Dados reais dos documentos oficiais CEGEP
   const mockEmployees: Employee[] = [
-    // PROFESSORES (16 total)
-    { id: '1', name: 'Adelino Bortolto Filho', position: 'Professor de Administração', salary: 2535.50, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '2', name: 'Antonio de Pádua Lelis Scanavachi', position: 'Professor de Seg. do Trabalho', salary: 1247.61, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '3', name: 'Bibiano Francisco Eloi Junior', position: 'Professor de Administração', salary: 1671.21, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '4', name: 'Carlos Eduardo de Oliveira', position: 'Professor de Eletrônica', salary: 2451.80, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '5', name: 'Denison Xavier', position: 'Professor de Eletrônica', salary: 1571.21, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '6', name: 'Eriel Fernando dos Santos', position: 'Professor', salary: 1467.02, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '7', name: 'Frederico Gomes Rodrigues', position: 'Professor de Edificações', salary: 1904.77, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '8', name: 'Guilherme Magano Lanza', position: 'Professor', salary: 1467.02, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '9', name: 'Igor Vespucci Laurindo', position: 'Professor de Edificações', salary: 1029.20, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '10', name: 'Iauê Peduto Conceição', position: 'Professor de Edificações', salary: 1014.09, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '11', name: 'João Paulo Gomes Diplom', position: 'Professor de Seg. do Trabalho', salary: 1659.53, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '12', name: 'Luis Henrique de Campos', position: 'Professor d Eletrônica', salary: 2429.20, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '13', name: 'Luiz Donizeti Duarte', position: 'Professor de Edificações', salary: 1587.02, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '14', name: 'Manuel Rodrigues', position: 'Professor de Administração', salary: 780.59, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '15', name: 'Rafaela Nunes Ferreira', position: 'Professora de Administração', salary: 1014.09, hireDate: '', category: 'professor', status: 'dismissed_december' },
-    { id: '16', name: 'Tristana Cezaretto', position: 'Professora de Psicologia', salary: 1467.02, hireDate: '', category: 'professor', status: 'dismissed_december' },
+    // ADMINISTRATIVOS CEGEP - Dados da planilha oficial
+    { id: '1', name: 'Ademar de Oliveira Viotto', position: 'Trabalhador da Manutenção', salary: 4427.00, hireDate: '27/07/2020', category: 'administrative', status: 'dismissed_december', severancePay: 21422.87 },
+    { id: '2', name: 'Aline da Silva Barbosa', position: 'Auxiliar de Tesouraria', salary: 4118.51, hireDate: '03/10/2019', category: 'administrative', status: 'dismissed_december', severancePay: 13960.11 },
+    { id: '3', name: 'Amilton Fernando Lourenço', position: 'Trabalhador da Manutenção', salary: 4427.00, hireDate: '01/08/2013', category: 'administrative', status: 'dismissed_december', severancePay: 26180.04 },
+    { id: '4', name: 'Carla Regina Bruno', position: 'Secretária Acadêmica', salary: 4614.85, hireDate: '20/01/2021', category: 'administrative', status: 'dismissed_december', severancePay: 24955.10 },
+    { id: '5', name: 'Evandro Ricardo Sabino de Souza', position: 'Inspetor de Alunos', salary: 2479.97, hireDate: '02/02/2004', category: 'administrative', status: 'dismissed_december', severancePay: 18690.19 },
+    { id: '6', name: 'Fátima Helena Cheregati', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '17/11/2017', category: 'administrative', status: 'dismissed_december', severancePay: 9914.13 },
+    { id: '7', name: 'Henrique Francisco Seixas', position: 'Assessor Jurídico', salary: 5677.64, hireDate: '10/04/2021', category: 'administrative', status: 'dismissed_december', severancePay: 29172.34 },
+    { id: '8', name: 'Juliano Luiz do Amaral', position: 'Assistente de T.I.', salary: 4960.96, hireDate: '10/03/2011', category: 'administrative', status: 'dismissed_december', severancePay: 32061.98 },
     
-    // ADMINISTRATIVOS
-    { id: '17', name: 'Maria do Carmo Quaresma Antonio', position: 'Analista de Recursos Humanos', salary: 5705.11, hireDate: '', category: 'maintain', status: 'maintain_2026' },
-    { id: '18', name: 'Aline da Silva Vieiosa', position: 'Auxiliar de Serviços Gerais', salary: 4118.50, hireDate: '', category: 'feg', status: 'funcamp_pending' },
-    { id: '19', name: 'Bruno Ferreira dos Santos', position: 'Oficial Administrativo Pleno', salary: 2754.73, hireDate: '', category: 'feg', status: 'funcamp_pending' },
-    { id: '20', name: 'Darlene da Silva Vieira', position: 'Oficial Administrativo Pleno', salary: 0, hireDate: '', category: 'inss', status: 'inss_leave', observations: 'Contrato suspenso' },
+    // COLABORADORES PARA MANTER ATÉ 2026
+    { id: '9', name: 'Maria do Carmo da Conceição Marques', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '20/10/2006', category: 'maintain', status: 'maintain_2026', severancePay: 12394.83 },
+    { id: '10', name: 'Maria do Carmo Quaresma Antonio', position: 'Analista de R.H.', salary: 5705.11, hireDate: '07/04/2021', category: 'maintain', status: 'maintain_2026', severancePay: 29309.50 },
+    { id: '11', name: 'Vera Lucia Pereira da Silva', position: 'Auxiliar de Serviços Gerais', salary: 1980.26, hireDate: '15/08/2011', category: 'maintain', status: 'maintain_2026', severancePay: 11598.32 },
+    
+    // FEG - Aguardando decisão FUNCAMP
+    { id: '12', name: 'Bruno Ferreira dos Santos', position: 'Oficial Administrativo Pleno', salary: 2754.73, hireDate: '02/05/2018', category: 'feg', status: 'funcamp_pending', severancePay: 15587.12 },
+    { id: '13', name: 'Josue Benedito', position: 'Auxiliar de Compras Pleno', salary: 3857.57, hireDate: '07/08/2024', category: 'feg', status: 'funcamp_pending', severancePay: 12344.37 },
+    { id: '14', name: 'Joyce Isis Jordão Anequini', position: 'Oficial Administrativo Júnior', salary: 2173.31, hireDate: '09/08/2024', category: 'feg', status: 'funcamp_pending', severancePay: 10068.39 },
+    
+    // AFASTADO INSS
+    { id: '15', name: 'Darlene da Silva Vieira', position: 'Oficial Administrativo Pleno', salary: 0, hireDate: '10/07/2012', category: 'inss', status: 'inss_leave', observations: 'Contrato suspenso' },
+    { id: '16', name: 'Cristiane Rodrigues de Oliveira', position: 'Auxiliar de Serviços Gerais', salary: 0, hireDate: '05/09/2022', category: 'feg', status: 'funcamp_pending', observations: 'INSS' },
+    { id: '17', name: 'Eliane Cristina Moraes Santangelo', position: 'Auxiliar de Serviços Gerais', salary: 0, hireDate: '05/09/2022', category: 'feg', status: 'funcamp_pending', observations: 'INSS' },
   ]
   
+  // Dados reais do extrato PERT oficial
   const mockTaxRisks: TaxRisk[] = [
     {
       id: '1',
       type: 'installment',
-      description: 'Parcelamento INSS - Contribuições em Atraso',
-      amount: 45000.00,
-      dueDate: '2025-01-15',
+      description: 'PERT - Programa Especial de Regularização Tributária',
+      amount: 432961.91,
+      dueDate: '2029-01-31',
       status: 'current',
       riskLevel: 'medium',
-      installmentInfo: { current: 8, total: 12, monthlyAmount: 3750.00 }
+      installmentInfo: { current: 95, total: 145, monthlyAmount: 9829.85 }
     },
     {
       id: '2',
       type: 'tax_obligation',
-      description: 'IRRF - Retenções Pendentes',
-      amount: 12500.00,
-      dueDate: '2024-12-20',
-      status: 'overdue',
+      description: 'Saldo Devedor PERT - Contribuições Previdenciárias',
+      amount: 432961.91,
+      dueDate: '2029-01-31',
+      status: 'current',
       riskLevel: 'high'
     }
   ]
@@ -95,27 +97,51 @@ export default function ReportGenerator() {
   const analytics = calculateAnalytics()
 
   const generateMarkdownReport = () => {
+    const totalSeverance = mockEmployees
+      .filter(emp => emp.severancePay)
+      .reduce((sum, emp) => sum + (emp.severancePay || 0), 0)
+    
     return `# Relatório Executivo CEGEP - ${new Date().toLocaleDateString('pt-BR')}
+**CNPJ:** 05.124.602/0001-74 - CENTRO GUAÇUANO DE EDUCAÇÃO PROFISSIONAL
 
 ## Resumo Executivo
 
-### 📊 Situação dos Colaboradores
-- **Total:** ${analytics.employees.total} colaboradores
-- **Demissões confirmadas:** ${analytics.employees.dismissed} (15/12/2024)
-- **Economia mensal:** R$ ${analytics.employees.totalSavings.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+### 📊 Situação dos Colaboradores (Dados Oficiais)
+- **Total de colaboradores:** ${analytics.employees.total}
+- **Demissões confirmadas:** ${analytics.employees.dismissed} funcionários
+- **Economia mensal:** R$ ${analytics.employees.dismissedTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+- **Total de verbas rescisórias:** R$ ${totalSeverance.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+- **Folha de pagamento atual:** R$ 51.137,43
 
-### 💰 Situação Fiscal
-- **Riscos identificados:** ${analytics.tax.total}
-- **Valor total:** R$ ${analytics.tax.totalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-- **Vencidos:** R$ ${analytics.tax.overdueAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+### 💰 Situação Fiscal (PERT Oficial)
+- **Parcelamento PERT nº:** 625278925
+- **Saldo devedor:** R$ ${analytics.tax.totalAmount.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+- **Parcelas restantes:** 50 de 145
+- **Valor mensal:** R$ 9.829,85
+- **Status:** ATIVO (EM DIA)
+- **Previsão término:** Janeiro/2029
 
-### ⚠️ Ações Prioritárias
-1. Finalizar demissões programadas para dezembro
-2. Aguardar decisão FUNCAMP sobre ${analytics.employees.pending} colaboradores
-3. Regularizar obrigações fiscais vencidas
-4. Coletar informações pendentes para cálculo de verbas rescisórias
+### 📅 Cronograma de Ações
+1. **Dezembro 2024:** Demissão de ${analytics.employees.dismissed} funcionários administrativos
+2. **Até 2026:** Aguardar decisão FUNCAMP sobre ${analytics.employees.pending} colaboradores FEG
+3. **2026:** Reavaliar situação dos ${analytics.employees.maintain} colaboradores mantidos
+4. **2029:** Conclusão do parcelamento PERT
+
+### 📉 Impacto Financeiro
+- **Economia anual:** R$ ${(analytics.employees.dismissedTotal * 12).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+- **Investimento em verbas:** R$ ${totalSeverance.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+- **ROI:** ${Math.round((analytics.employees.dismissedTotal * 12) / totalSeverance * 100)}% ao ano
+
+### ⚠️ Status Crítico
+- **Maria Quaresma:** Aposentadoria próxima - planejar substituição
+- **Colaboradores INSS:** Cristiane e Eliane afastadas
+- **Parcelamento PERT:** Manter pagamentos em dia para evitar inscrição em Dívida Ativa
 
 ---
+**Documento baseado em:**
+- Relação de Funcionários ADM (dados oficiais)
+- Extrato PERT 625278925 (atualizado em 27/11/2025)
+
 Relatório gerado automaticamente em ${new Date().toLocaleString('pt-BR')}`
   }
 
