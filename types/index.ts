@@ -5,7 +5,7 @@ export interface Employee {
   salary: number
   hireDate: string
   category: 'professor' | 'administrative' | 'feg' | 'inss' | 'maintain'
-  status: 'active' | 'dismissed_december' | 'funcamp_pending' | 'inss_leave' | 'maintain_2026'
+  status: 'active' | 'dismissed_december' | 'funcamp_pending' | 'inss_leave' | 'maintain_2026' | 'decision_pending' | 'inss_feg_pending'
   dismissalDate?: string
   severancePay?: number
   observations?: string

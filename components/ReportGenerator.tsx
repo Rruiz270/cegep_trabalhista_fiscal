@@ -8,9 +8,9 @@ export default function ReportGenerator() {
   const [reportType, setReportType] = useState<'complete' | 'employees' | 'tax'>('complete')
   const [reportData, setReportData] = useState('')
   
-  // Dados reais dos documentos oficiais CEGEP - Estrutura correta
+  // Cenário atual CEGEP - Estrutura de demissões definida
   const mockEmployees: Employee[] = [
-    // PROFESSORES - TODOS DEMITIDOS EM 16 DE DEZEMBRO (16 total - R$ 21.399,83)
+    // PROFESSORES - TODOS DEMITIDOS EM 15 DE DEZEMBRO (16 total - R$ 21.399,83)
     { id: '1', name: 'Adelino Bortolto Filho', position: 'Professor de Administração', salary: 2535.50, hireDate: '', category: 'professor', status: 'dismissed_december' },
     { id: '2', name: 'Antonio de Pádua Lelis Scanavachi', position: 'Professor de Seg. do Trabalho', salary: 1247.61, hireDate: '', category: 'professor', status: 'dismissed_december' },
     { id: '3', name: 'Bibiano Francisco Eloi Junior', position: 'Professor de Administração', salary: 1671.21, hireDate: '', category: 'professor', status: 'dismissed_december' },
@@ -79,13 +79,16 @@ export default function ReportGenerator() {
 
   const calculateAnalytics = () => {
     const dismissed = mockEmployees.filter(emp => emp.status === 'dismissed_december')
-    const pending = mockEmployees.filter(emp => emp.status === 'funcamp_pending')
+    const fegPending = mockEmployees.filter(emp => emp.status === 'funcamp_pending')
     const maintain = mockEmployees.filter(emp => emp.status === 'maintain_2026')
     const inss = mockEmployees.filter(emp => emp.status === 'inss_leave')
+    const decisionPending = mockEmployees.filter(emp => emp.status === 'decision_pending')
+    const inssFegPending = mockEmployees.filter(emp => emp.status === 'inss_feg_pending')
     
     const dismissedTotal = dismissed.reduce((sum, emp) => sum + emp.salary, 0)
-    const pendingTotal = pending.reduce((sum, emp) => sum + emp.salary, 0)
+    const fegPendingTotal = fegPending.reduce((sum, emp) => sum + emp.salary, 0)
     const maintainTotal = maintain.reduce((sum, emp) => sum + emp.salary, 0)
+    const decisionPendingTotal = decisionPending.reduce((sum, emp) => sum + emp.salary, 0)
     
     const totalTaxRisk = mockTaxRisks.reduce((sum, risk) => sum + risk.amount, 0)
     const overdueTax = mockTaxRisks.filter(risk => risk.status === 'overdue').reduce((sum, risk) => sum + risk.amount, 0)
@@ -94,13 +97,17 @@ export default function ReportGenerator() {
       employees: {
         total: mockEmployees.length,
         dismissed: dismissed.length,
-        pending: pending.length,
+        fegPending: fegPending.length,
         maintain: maintain.length,
         inss: inss.length,
+        decisionPending: decisionPending.length,
+        inssFegPending: inssFegPending.length,
         dismissedTotal,
-        pendingTotal,
+        fegPendingTotal,
         maintainTotal,
-        totalSavings: dismissedTotal + pendingTotal
+        decisionPendingTotal,
+        confirmedSavings: dismissedTotal,
+        potentialSavings: fegPendingTotal + decisionPendingTotal
       },
       tax: {
         total: mockTaxRisks.length,
@@ -266,31 +273,31 @@ Relatório gerado em ${new Date().toLocaleString('pt-BR')}`
         <div className="bg-gradient-to-r from-red-500 to-red-600 p-6 rounded-xl text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-red-100 text-sm">Demissões Dezembro</p>
+              <p className="text-red-100 text-sm">Demissões Confirmadas</p>
               <p className="text-3xl font-bold">{analytics.employees.dismissed}</p>
-              <p className="text-red-100 text-sm">R$ {analytics.employees.dismissedTotal.toLocaleString('pt-BR')}/mês</p>
+              <p className="text-red-100 text-sm">15 Dezembro - R$ {analytics.employees.dismissedTotal.toLocaleString('pt-BR')}/mês</p>
             </div>
             <TrendingDown className="text-red-200" size={32} />
           </div>
         </div>
         
-        <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 p-6 rounded-xl text-white">
+        <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-6 rounded-xl text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-yellow-100 text-sm">FUNCAMP Pendente</p>
-              <p className="text-3xl font-bold">{analytics.employees.pending}</p>
-              <p className="text-yellow-100 text-sm">R$ {analytics.employees.pendingTotal.toLocaleString('pt-BR')}/mês</p>
+              <p className="text-orange-100 text-sm">Decisões Pendentes</p>
+              <p className="text-3xl font-bold">{analytics.employees.decisionPending + analytics.employees.fegPending}</p>
+              <p className="text-orange-100 text-sm">R$ {analytics.employees.potentialSavings.toLocaleString('pt-BR')}/mês</p>
             </div>
-            <Clock className="text-yellow-200" size={32} />
+            <Clock className="text-orange-200" size={32} />
           </div>
         </div>
         
         <div className="bg-gradient-to-r from-green-500 to-green-600 p-6 rounded-xl text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-green-100 text-sm">Economia Total</p>
-              <p className="text-3xl font-bold">R$ {Math.round(analytics.employees.totalSavings/1000)}K</p>
-              <p className="text-green-100 text-sm">{analytics.employees.dismissed + analytics.employees.pending} colaboradores</p>
+              <p className="text-green-100 text-sm">Economia Garantida</p>
+              <p className="text-3xl font-bold">R$ {Math.round(analytics.employees.confirmedSavings/1000)}K</p>
+              <p className="text-green-100 text-sm">Anual: R$ {Math.round((analytics.employees.confirmedSavings * 12)/1000)}K</p>
             </div>
             <TrendingUp className="text-green-200" size={32} />
           </div>
@@ -299,9 +306,9 @@ Relatório gerado em ${new Date().toLocaleString('pt-BR')}`
         <div className="bg-gradient-to-r from-purple-500 to-purple-600 p-6 rounded-xl text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-purple-100 text-sm">Risco Fiscal</p>
+              <p className="text-purple-100 text-sm">PERT (95/145)</p>
               <p className="text-3xl font-bold">R$ {Math.round(analytics.tax.totalAmount/1000)}K</p>
-              <p className="text-purple-100 text-sm">{analytics.tax.total} obrigações</p>
+              <p className="text-purple-100 text-sm">50 parcelas restantes</p>
             </div>
             <AlertTriangle className="text-purple-200" size={32} />
           </div>
@@ -335,7 +342,7 @@ Relatório gerado em ${new Date().toLocaleString('pt-BR')}`
                 <span className="font-medium text-yellow-900">Decisão Pendente</span>
               </div>
               <div className="text-right">
-                <p className="font-bold text-yellow-600">{analytics.employees.pending}</p>
+                <p className="font-bold text-yellow-600">{analytics.employees.fegPending}</p>
                 <p className="text-sm text-yellow-500">FUNCAMP</p>
               </div>
             </div>
@@ -367,12 +374,12 @@ Relatório gerado em ${new Date().toLocaleString('pt-BR')}`
             <h4 className="font-semibold text-blue-900 mb-2">Impacto Financeiro</h4>
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <p className="text-blue-700">Economia Mensal:</p>
-                <p className="font-bold text-blue-900">R$ {analytics.employees.totalSavings.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
+                <p className="text-blue-700">Economia Confirmada:</p>
+                <p className="font-bold text-blue-900">R$ {analytics.employees.confirmedSavings.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
               </div>
               <div>
-                <p className="text-blue-700">Economia Anual:</p>
-                <p className="font-bold text-blue-900">R$ {(analytics.employees.totalSavings * 12).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
+                <p className="text-blue-700">Economia Potencial:</p>
+                <p className="font-bold text-blue-900">R$ {analytics.employees.potentialSavings.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
               </div>
             </div>
           </div>
@@ -466,8 +473,8 @@ Relatório gerado em ${new Date().toLocaleString('pt-BR')}`
             </div>
             <div>
               <h4 className="font-semibold text-yellow-900">Até Janeiro de 2026</h4>
-              <p className="text-yellow-700">Aguardar decisão FUNCAMP sobre absorção de {analytics.employees.pending} colaboradores FEG</p>
-              <p className="text-sm text-yellow-600">Valor envolvido: R$ {analytics.employees.pendingTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}/mês</p>
+              <p className="text-yellow-700">Aguardar decisão FUNCAMP sobre absorção de {analytics.employees.fegPending} colaboradores FEG</p>
+              <p className="text-sm text-yellow-600">Valor envolvido: R$ {analytics.employees.fegPendingTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}/mês</p>
             </div>
           </div>
           

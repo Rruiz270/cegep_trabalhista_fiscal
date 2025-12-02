@@ -1,13 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { PlusCircle, Download, AlertTriangle, Users, Receipt } from 'lucide-react'
+import { PlusCircle, Download, AlertTriangle, Users, Receipt, BarChart3 } from 'lucide-react'
 import EmployeeManager from '@/components/EmployeeManager'
 import TaxRiskManager from '@/components/TaxRiskManager'
 import ReportGenerator from '@/components/ReportGenerator'
+import ScenarioAnalysis from '@/components/ScenarioAnalysis'
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<'employees' | 'tax' | 'report'>('employees')
+  const [activeTab, setActiveTab] = useState<'scenario' | 'employees' | 'tax' | 'report'>('scenario')
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -23,6 +24,17 @@ export default function Home() {
         <nav className="mb-8">
           <div className="flex space-x-4 border-b border-gray-200">
             <button
+              onClick={() => setActiveTab('scenario')}
+              className={`flex items-center gap-2 px-4 py-2 border-b-2 font-medium text-sm ${
+                activeTab === 'scenario'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <BarChart3 size={20} />
+              Análise de Cenários
+            </button>
+            <button
               onClick={() => setActiveTab('employees')}
               className={`flex items-center gap-2 px-4 py-2 border-b-2 font-medium text-sm ${
                 activeTab === 'employees'
@@ -31,7 +43,7 @@ export default function Home() {
               }`}
             >
               <Users size={20} />
-              Riscos Trabalhistas
+              Gestão de Funcionários
             </button>
             <button
               onClick={() => setActiveTab('tax')}
@@ -53,12 +65,13 @@ export default function Home() {
               }`}
             >
               <Download size={20} />
-              Relatórios
+              Dashboard Executivo
             </button>
           </div>
         </nav>
 
         <main>
+          {activeTab === 'scenario' && <ScenarioAnalysis />}
           {activeTab === 'employees' && <EmployeeManager />}
           {activeTab === 'tax' && <TaxRiskManager />}
           {activeTab === 'report' && <ReportGenerator />}
