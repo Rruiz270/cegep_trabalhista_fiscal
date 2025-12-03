@@ -5,7 +5,7 @@ import { PlusCircle, Download, AlertTriangle, Users, Receipt, BarChart3 } from '
 import EmployeeManager from '@/components/EmployeeManager'
 import TaxRiskManager from '@/components/TaxRiskManager'
 import ReportGenerator from '@/components/ReportGenerator'
-import ScenarioAnalysis from '@/components/ScenarioAnalysis'
+import RiskAssessment from '@/components/RiskAssessment'
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'scenario' | 'employees' | 'tax' | 'report'>('scenario')
@@ -32,7 +32,7 @@ export default function Home() {
               }`}
             >
               <BarChart3 size={20} />
-              Análise de Cenários
+              Análise de Riscos
             </button>
             <button
               onClick={() => setActiveTab('employees')}
@@ -71,7 +71,7 @@ export default function Home() {
         </nav>
 
         <main>
-          {activeTab === 'scenario' && <ScenarioAnalysis />}
+          {activeTab === 'scenario' && <RiskAssessment />}
           {activeTab === 'employees' && <EmployeeManager />}
           {activeTab === 'tax' && <TaxRiskManager />}
           {activeTab === 'report' && <ReportGenerator />}

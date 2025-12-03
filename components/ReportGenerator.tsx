@@ -54,26 +54,17 @@ export default function ReportGenerator() {
     { id: '33', name: 'Eliane Cristina Moraes Santangelo', position: 'Auxiliar de Serviços Gerais', salary: 0, hireDate: '05/09/2022', category: 'feg', status: 'funcamp_pending', observations: 'INSS' },
   ]
   
-  // Dados reais do extrato PERT oficial
+  // Dados reais do extrato PERT oficial - SEM DUPLICAÇÃO
   const mockTaxRisks: TaxRisk[] = [
     {
       id: '1',
       type: 'installment',
-      description: 'PERT - Programa Especial de Regularização Tributária',
+      description: 'PERT - Saldo Devedor Atual',
       amount: 432961.91,
       dueDate: '2029-01-31',
       status: 'current',
       riskLevel: 'medium',
       installmentInfo: { current: 95, total: 145, monthlyAmount: 9829.85 }
-    },
-    {
-      id: '2',
-      type: 'tax_obligation',
-      description: 'Saldo Devedor PERT - Contribuições Previdenciárias',
-      amount: 432961.91,
-      dueDate: '2029-01-31',
-      status: 'current',
-      riskLevel: 'high'
     }
   ]
 
@@ -268,49 +259,49 @@ Relatório gerado em ${new Date().toLocaleString('pt-BR')}`
         </div>
       </div>
 
-      {/* Métricas Principais */}
+      {/* Métricas de Risco - Foco na Aquisição */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-gradient-to-r from-red-500 to-red-600 p-6 rounded-xl text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-red-100 text-sm">Demissões Confirmadas</p>
-              <p className="text-3xl font-bold">{analytics.employees.dismissed}</p>
-              <p className="text-red-100 text-sm">15 Dezembro - R$ {analytics.employees.dismissedTotal.toLocaleString('pt-BR')}/mês</p>
+              <p className="text-red-100 text-sm">Passivo Trabalhista</p>
+              <p className="text-3xl font-bold">R$ 268K</p>
+              <p className="text-red-100 text-sm">Verbas rescisórias a provisionar</p>
             </div>
-            <TrendingDown className="text-red-200" size={32} />
+            <AlertTriangle className="text-red-200" size={32} />
           </div>
         </div>
         
         <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-6 rounded-xl text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-orange-100 text-sm">Decisões Pendentes</p>
-              <p className="text-3xl font-bold">{analytics.employees.decisionPending + analytics.employees.fegPending}</p>
-              <p className="text-orange-100 text-sm">R$ {analytics.employees.potentialSavings.toLocaleString('pt-BR')}/mês</p>
-            </div>
-            <Clock className="text-orange-200" size={32} />
-          </div>
-        </div>
-        
-        <div className="bg-gradient-to-r from-green-500 to-green-600 p-6 rounded-xl text-white">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-green-100 text-sm">Economia Garantida</p>
-              <p className="text-3xl font-bold">R$ {Math.round(analytics.employees.confirmedSavings/1000)}K</p>
-              <p className="text-green-100 text-sm">Anual: R$ {Math.round((analytics.employees.confirmedSavings * 12)/1000)}K</p>
-            </div>
-            <TrendingUp className="text-green-200" size={32} />
-          </div>
-        </div>
-        
-        <div className="bg-gradient-to-r from-purple-500 to-purple-600 p-6 rounded-xl text-white">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-purple-100 text-sm">PERT (95/145)</p>
+              <p className="text-orange-100 text-sm">PERT - Saldo Devedor</p>
               <p className="text-3xl font-bold">R$ {Math.round(analytics.tax.totalAmount/1000)}K</p>
-              <p className="text-purple-100 text-sm">50 parcelas restantes</p>
+              <p className="text-orange-100 text-sm">50 parcelas restantes</p>
             </div>
-            <AlertTriangle className="text-purple-200" size={32} />
+            <DollarSign className="text-orange-200" size={32} />
+          </div>
+        </div>
+        
+        <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 p-6 rounded-xl text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-yellow-100 text-sm">Funcionários Transição</p>
+              <p className="text-3xl font-bold">{analytics.employees.decisionPending + analytics.employees.fegPending + analytics.employees.maintain}</p>
+              <p className="text-yellow-100 text-sm">Decisões pendentes</p>
+            </div>
+            <Clock className="text-yellow-200" size={32} />
+          </div>
+        </div>
+        
+        <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-6 rounded-xl text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-blue-100 text-sm">Risco Total</p>
+              <p className="text-3xl font-bold">Alto</p>
+              <p className="text-blue-100 text-sm">Aquisição complexa</p>
+            </div>
+            <TrendingUp className="text-blue-200" size={32} />
           </div>
         </div>
       </div>

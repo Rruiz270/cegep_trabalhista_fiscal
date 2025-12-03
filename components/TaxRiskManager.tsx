@@ -8,7 +8,7 @@ const initialTaxRisks: TaxRisk[] = [
   {
     id: '1',
     type: 'installment',
-    description: 'PERT - Programa Especial de Regularização Tributária',
+    description: 'PERT - Saldo Devedor Atual (50 parcelas restantes)',
     amount: 432961.91,
     dueDate: '2029-01-31',
     status: 'current',
@@ -18,32 +18,27 @@ const initialTaxRisks: TaxRisk[] = [
       total: 145,
       monthlyAmount: 9829.85
     },
-    observations: 'Parcelamento nº 625278925 - ATIVO (EM DIA) - Negociação: 29/09/2017 - 50 parcelas restantes'
+    observations: 'Parcelamento nº 625278925 - ATIVO (EM DIA) - 50 parcelas de ~R$ 8.659,24 cada (valor presente)'
   },
   {
     id: '2',
-    type: 'tax_obligation',
-    description: 'Saldo Devedor PERT - Contribuições Previdenciárias',
+    type: 'debt',
+    description: 'Análise Pagamento à Vista PERT',
     amount: 432961.91,
-    dueDate: '2029-01-31',
+    dueDate: '2025-12-31',
     status: 'current',
     riskLevel: 'high',
-    observations: 'Valor total do parcelamento - Atualizado em 27/11/2025 - CNPJ: 05.124.602/0001-74'
+    observations: 'Opção: Quitar parcelamento à vista com desconto vs. continuar 50 parcelas mensais. Risco: mudanças na legislação tributária.'
   },
   {
     id: '3',
-    type: 'installment',
-    description: 'Últimas Parcelas Pagas PERT (2025)',
-    amount: 46838.54,
-    dueDate: '2025-11-28',
+    type: 'tax_obligation',
+    description: 'Risco de Continuidade Tributária',
+    amount: 150000.00,
+    dueDate: '2026-12-31',
     status: 'current',
-    riskLevel: 'low',
-    installmentInfo: {
-      current: 5,
-      total: 5,
-      monthlyAmount: 9367.71
-    },
-    observations: 'Parcelas 91-95 pagas em 2025 - Valores: R$ 9.539,89 + R$ 9.615,02 + R$ 9.683,11 + R$ 9.754,72 + R$ 9.829,85'
+    riskLevel: 'high',
+    observations: 'Provisão para possíveis autuações futuras, mudanças na legislação e adequação pós-aquisição da entidade.'
   }
 ]
 
