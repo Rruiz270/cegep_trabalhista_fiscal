@@ -34,11 +34,11 @@ const riskMetrics: RiskMetric[] = [
     recommendation: "Definir estratégia individual para cada colaborador"
   },
   {
-    title: "Risco Regulatório",
-    value: "Alto",
-    risk: "high",
-    description: "Entidade sem fins lucrativos com prestação de contas ao MP e possível mudança de natureza jurídica",
-    recommendation: "Due diligence completa das obrigações regulatórias"
+    title: "Adequação Regulatória",
+    value: "Controlado",
+    risk: "medium",
+    description: "Entidade sem fins lucrativos com prestação de contas ao MP em dia. Transição planejada.",
+    recommendation: "Acompanhar processo de adequação durante a transição"
   }
 ]
 
@@ -195,47 +195,47 @@ export default function RiskAssessment() {
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="space-y-4">
-            <h4 className="font-semibold text-red-700">Riscos Altos</h4>
+            <h4 className="font-semibold text-orange-700">Pontos de Atenção</h4>
             <div className="space-y-3">
-              <div className="p-3 bg-red-50 rounded border border-red-200">
-                <h5 className="font-medium text-red-900">Passivos Trabalhistas</h5>
-                <p className="text-sm text-red-700">R$ 267.659,29 em verbas rescisórias</p>
+              <div className="p-3 bg-orange-50 rounded border border-orange-200">
+                <h5 className="font-medium text-orange-900">Passivos Trabalhistas</h5>
+                <p className="text-sm text-orange-700">R$ 267.659,29 em verbas rescisórias identificadas</p>
               </div>
-              <div className="p-3 bg-red-50 rounded border border-red-200">
-                <h5 className="font-medium text-red-900">Adequação Regulatória</h5>
-                <p className="text-sm text-red-700">Mudanças necessárias na estrutura jurídica</p>
+              <div className="p-3 bg-orange-50 rounded border border-orange-200">
+                <h5 className="font-medium text-orange-900">Adequação Regulatória</h5>
+                <p className="text-sm text-orange-700">Processo de transição da estrutura jurídica</p>
               </div>
-              <div className="p-3 bg-red-50 rounded border border-red-200">
-                <h5 className="font-medium text-red-900">Due Diligence</h5>
-                <p className="text-sm text-red-700">Informações pendentes sobre histórico</p>
+              <div className="p-3 bg-orange-50 rounded border border-orange-200">
+                <h5 className="font-medium text-orange-900">Due Diligence</h5>
+                <p className="text-sm text-orange-700">Levantamento completo em andamento</p>
               </div>
             </div>
           </div>
 
           <div className="space-y-4">
-            <h4 className="font-semibold text-yellow-700">Riscos Médios</h4>
+            <h4 className="font-semibold text-blue-700">Decisões Estratégicas</h4>
             <div className="space-y-3">
-              <div className="p-3 bg-yellow-50 rounded border border-yellow-200">
-                <h5 className="font-medium text-yellow-900">PERT</h5>
-                <p className="text-sm text-yellow-700">R$ 432.961,91 - Decisão pagamento/parcelamento</p>
+              <div className="p-3 bg-blue-50 rounded border border-blue-200">
+                <h5 className="font-medium text-blue-900">PERT</h5>
+                <p className="text-sm text-blue-700">R$ 432.961,91 - Avaliar pagamento à vista</p>
               </div>
-              <div className="p-3 bg-yellow-50 rounded border border-yellow-200">
-                <h5 className="font-medium text-yellow-900">Transição RH</h5>
-                <p className="text-sm text-yellow-700">7 funcionários em situação indefinida</p>
+              <div className="p-3 bg-blue-50 rounded border border-blue-200">
+                <h5 className="font-medium text-blue-900">Transição RH</h5>
+                <p className="text-sm text-blue-700">7 funcionários para definição estratégica</p>
               </div>
-              <div className="p-3 bg-yellow-50 rounded border border-yellow-200">
-                <h5 className="font-medium text-yellow-900">Certificações</h5>
-                <p className="text-sm text-yellow-700">Continuidade da emissão durante transição</p>
+              <div className="p-3 bg-blue-50 rounded border border-blue-200">
+                <h5 className="font-medium text-blue-900">Certificações</h5>
+                <p className="text-sm text-blue-700">Planejar continuidade operacional</p>
               </div>
             </div>
           </div>
 
           <div className="space-y-4">
-            <h4 className="font-semibold text-green-700">Riscos Baixos</h4>
+            <h4 className="font-semibold text-green-700">Situação Favorável</h4>
             <div className="space-y-3">
               <div className="p-3 bg-green-50 rounded border border-green-200">
                 <h5 className="font-medium text-green-900">Situação Fiscal</h5>
-                <p className="text-sm text-green-700">PERT em dia, sem pendências</p>
+                <p className="text-sm text-green-700">PERT em dia, sem pendências ativas</p>
               </div>
               <div className="p-3 bg-green-50 rounded border border-green-200">
                 <h5 className="font-medium text-green-900">Documentação</h5>

@@ -297,11 +297,11 @@ Relatório gerado em ${new Date().toLocaleString('pt-BR')}`
         <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-6 rounded-xl text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-blue-100 text-sm">Risco Total</p>
-              <p className="text-3xl font-bold">Alto</p>
-              <p className="text-blue-100 text-sm">Aquisição complexa</p>
+              <p className="text-blue-100 text-sm">Status Aquisição</p>
+              <p className="text-3xl font-bold">Viável</p>
+              <p className="text-blue-100 text-sm">Passivos identificados</p>
             </div>
-            <TrendingUp className="text-blue-200" size={32} />
+            <CheckCircle className="text-blue-200" size={32} />
           </div>
         </div>
       </div>

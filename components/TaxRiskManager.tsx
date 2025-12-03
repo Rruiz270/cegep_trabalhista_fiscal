@@ -8,7 +8,7 @@ const initialTaxRisks: TaxRisk[] = [
   {
     id: '1',
     type: 'installment',
-    description: 'PERT - Saldo Devedor Atual (50 parcelas restantes)',
+    description: 'PERT - Saldo Devedor (50 parcelas restantes)',
     amount: 432961.91,
     dueDate: '2029-01-31',
     status: 'current',
@@ -18,27 +18,7 @@ const initialTaxRisks: TaxRisk[] = [
       total: 145,
       monthlyAmount: 9829.85
     },
-    observations: 'Parcelamento nº 625278925 - ATIVO (EM DIA) - 50 parcelas de ~R$ 8.659,24 cada (valor presente)'
-  },
-  {
-    id: '2',
-    type: 'debt',
-    description: 'Análise Pagamento à Vista PERT',
-    amount: 432961.91,
-    dueDate: '2025-12-31',
-    status: 'current',
-    riskLevel: 'high',
-    observations: 'Opção: Quitar parcelamento à vista com desconto vs. continuar 50 parcelas mensais. Risco: mudanças na legislação tributária.'
-  },
-  {
-    id: '3',
-    type: 'tax_obligation',
-    description: 'Risco de Continuidade Tributária',
-    amount: 150000.00,
-    dueDate: '2026-12-31',
-    status: 'current',
-    riskLevel: 'high',
-    observations: 'Provisão para possíveis autuações futuras, mudanças na legislação e adequação pós-aquisição da entidade.'
+    observations: 'Parcelamento nº 625278925 - ATIVO (EM DIA) - Opção de pagamento à vista disponível com possível desconto'
   }
 ]
 
